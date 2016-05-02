@@ -103,7 +103,7 @@ Here's some small projects that you can now do.
 
 Instead of a button we can use any other type of input. For example a motion sensor (PIR sensor) which triggers when it detects movement using infrared light. Take one of the sensors from the front of the room (if in doubt, ask us!) and hook these up in place of the button. For example, the PIR sensor can be hooked up to 5V (+), GND (-) and a pin. Use the same code as for the button, but just change `BUTTON1` to the pin you hooked the PIR sensor to.
 
-**Tip:** In doubt on how to connect a sensor? Google for *[sensor] fritzing* to get drawings for the breadboard.
+**Tip:** In doubt on how to connect a sensor? Google for *'[sensor] fritzing'* to get drawings for the breadboard.
 
 ### Building a color wheel
 
@@ -139,14 +139,36 @@ The Tiny BLE contains an accelerometer. [Here](https://developer.mbed.org/teams/
 
 Read the values from the accelerometer, or set some interrupts whenever a shake or a fall happens. Now create a new BLE service (see `LEDService` as an example) and expose this data to the outside world. Don't forget to also add the service in the `service_list` in main.cpp.
 
+### Building a Bluetooth router (advanced)
+
+The downside of using Bluetooth is that you need to be in the vicinity of the device to read and write data. But... your phone has a connection to the internet. We can write an app that is always connected to the device, put it on a cheap phone, and connect this phone to some internet service. We can now route messages to and from the device over this phone, and talk to a device from anywhere in the world!
+
+Here's the [5 minute introduction to Firebase](https://www.firebase.com/tutorial/#tutorial/basic/0). Add Firebase support to your app, and then stream all Bluetooth data (e.g. the button presses) back to Firebase. Try to also do the same the other way around (toggle the LED using Firebase).
+
 ## WiFi with the ESP8266
 
 If you want to experiment with WiFi we have a number of the ESP8266 WiFi modules. It requires a bit of wiring, if you run into trouble with that, please shout and we're happy to help!
 
+**Note:** Make sure to have set up [serial communication](https://developer.mbed.org/handbook/SerialPC#host-interface-and-terminal-applications) with your board. See the 'Setup' section for more instructions.
+
 This is how you wire the ESP8266 to your Nucleo board:
 
-![This is actually an Arduino, I'll update it...](http://cdn.instructables.com/FC5/FW5J/IGHOIQAH/FC5FW5JIGHOIQAH.LARGE.jpg).
+![Pens > computers](pinout-esp8266.jpg)
 
-> We need the voltage divider circuit because the Nucleo board uses 5V on it's TX/RX pins, but the ESP8266 only works on 3.3V.
+> We might need a [voltage divider circuit](http://cdn.instructables.com/FC5/FW5J/IGHOIQAH/FC5FW5JIGHOIQAH.LARGE.jpg) because the Nucleo board uses 5V on it's TX/RX pins, but the ESP8266 only works on 3.3V.
 
-* [Example code](https://developer.mbed.org/teams/ESP8266/).
+When wired successfully the red LED should burn (status LED) and we can import some code. Click on [this link](https://developer.mbed.org/compiler/#import:/teams/ESP8266/code/ESP8266_HTTP_HelloWorld/;platform:) to import the 'ESP8266_HTTP_HelloWorld' program into the online compiler.
+
+After importing, open *main.cpp* and change the following line:
+
+```cpp
+ESP8266Interface wifi(D1,D0,D2,"demossid","password",115200); // TX,RX,Reset,SSID,Password,Baud
+```
+
+into:
+
+```
+ESP8266Interface wifi(D8,D2,D7,"OUR_SSID","OUR_PWD",115200); // TX,RX,Reset,SSID,Password,Baud
+```
+
+Then hit *Compile* and flash the application to your board, similar to how we did it for the Bluetooth examples.
