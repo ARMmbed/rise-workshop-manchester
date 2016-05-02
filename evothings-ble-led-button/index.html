@@ -1,35 +1,14 @@
 <!DOCTYPE html>
-<!--
-Description:
-
-	Example for creating a custom GATT encoding with mbed BLE device.
-
-Requirements:
-
-	An mbed enabled BLE platform running the code from:
-	http://developer.mbed.org/teams/Bluetooth-Low-Energy/code/BLE_GATT_Example/
-
-Credits:
-
-	ARM mbed [-_-]~
-
-	http://mbed.org
--->
 <html>
-
 <head>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, user-scalable=no,
 		shrink-to-fit=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>mbed Evothings GATT</title>
-
+	<title>RISE Manchester</title>
 	<style>
 		@import 'ui/css/evothings-app.css';
-	</style>
-
-	<style>
 		#connectButton {
 			width: 49%;
 			float: left;
@@ -59,7 +38,6 @@ Credits:
 	<script src="libs/evothings/ui/ui.js"></script>
 	<script src="libs/evothings/easyble/easyble.js"></script>
 	<script src="app.js"></script>
-
 </head>
 
 <body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
@@ -70,7 +48,7 @@ Credits:
 		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
 	</header>
 
-	<h1>mbed Evothings GATT</h1>
+	<h1>RISE Manchester</h1>
 
 	<h2>Enter name of your BLE device</h2>
 
@@ -86,22 +64,7 @@ Credits:
 
 	<p id="info">Not Connected</p>
 
-	<h2>Info</h2>
-
-	<p>
-		Enter the name of your mbed compatible BLE board and tap Connect.
-		When connected you can toggle LED1 on the mbed enabled BLE board.
-	</p>
-
-	<p>
-		This app is paired with the
-		<a href="http://developer.mbed.org/teams/Bluetooth-Low-Energy/code/BLE_GATT_Example/">
-		custom GATT mbed code</a>.
-		The mbed code demonstrates how to create a custom GATT service on the
-		microcontroller side. This JavaScript application demonstrates how to
-		interact with that custom GATT service from the phone side.
-	</p>
-
+	<h2>Button</h2>
+	<p id="button-state">No events yet...</p>
 </body>
-
 </html>
