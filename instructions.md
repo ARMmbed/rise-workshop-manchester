@@ -151,11 +151,22 @@ If you want to experiment with WiFi we have a number of the ESP8266 WiFi modules
 
 **Note:** Make sure to have set up [serial communication](https://developer.mbed.org/handbook/SerialPC#host-interface-and-terminal-applications) with your board. See the 'Setup' section for more instructions.
 
+### Wiring it up
+
 This is how you wire the ESP8266 to your Nucleo board:
 
 ![Pens > computers](pinout-esp8266.jpg)
 
-> We might need a [voltage divider circuit](http://cdn.instructables.com/FC5/FW5J/IGHOIQAH/FC5FW5JIGHOIQAH.LARGE.jpg) because the Nucleo board uses 5V on it's TX/RX pins, but the ESP8266 only works on 3.3V.
+You cannot connect `TX` directly to `D2`, but you need a voltage divider to transform 5V into 3.3V. Do it like this:
+
+* Put 3 resistors with the same value in series on a breadboard.
+* Connect a wire from one end of the resistor chain to D2.
+* Connect a wire from the other end of the resistor chain to GND.
+* Connect a wire from 1/3th of the resistor chain (seen from D2) to `TX` on the ESP8266.
+
+![Voltage divider](voltage-divider.jpg)
+
+*1=D2 on Nucleo; 2=TX on ESP8266; 3=GND on Nucleo*
 
 When wired successfully the red LED should burn (status LED) and we can import some code. Click on [this link](https://developer.mbed.org/compiler/#import:/teams/ESP8266/code/ESP8266_HTTP_HelloWorld/;platform:) to import the 'ESP8266_HTTP_HelloWorld' program into the online compiler.
 
@@ -171,4 +182,10 @@ into:
 ESP8266Interface wifi(D8,D2,D7,"OUR_SSID","OUR_PWD",115200); // TX,RX,Reset,SSID,Password,Baud
 ```
 
-Then hit *Compile* and flash the application to your board, similar to how we did it for the Bluetooth examples.
+Then hit *Compile* and flash the application to your board, similar to how we did it for the Bluetooth examples. Sometimes the first request fails, look at the serial output for information (baud rate 9600).
+
+**Tip:** Want raw access to the ESP8266? Run [SerialPassthrough](https://developer.mbed.org/users/mbedAustin/code/SerialPassthrough/) on the board, and talk directly from computer to the WiFi chip.
+
+**Tip 2:** Put the GET/POST calls into a `while(1) {}` loop so it keeps doing requests.
+
+Now just feel free to start hacking on any connected solution. Enjoy!
