@@ -13,16 +13,17 @@ Reading this doc after RISE? Not a problem. Get an mbed enabled BLE board (nRF51
 ### Tiny BLE
 
 1. Connect the board to your computer using the micro-USB cable.
-1. The board mounts as a mass-storage device (like a USB drive). Verify that you can see it (drive name will be MBED).
+1. The board mounts as a mass-storage device (like a USB drive). Verify that you can see it (drive name will be `MBED`).
 1. Click on [this link](https://developer.mbed.org/platforms/Seeed-Tiny-BLE/add/) (sign up for an ARM mbed account when prompted).
 1. Then click on [this link](https://developer.mbed.org/compiler/#import:/users/janjongboom/code/BLE_LED_Button/;platform:).
 
 ### ST Nucleo
 
+1. Only on Windows: Install the [ST Link Driver](https://developer.mbed.org/teams/ST/wiki/ST-Link-Driver).
 1. Connect the board to your computer using the mini-USB cable.
-1. The board mounts as a mass-storage device (like a USB drive). Verify that you can see it (drive name will be MBED).
+1. The board mounts as a mass-storage device (like a USB drive). Verify that you can see it (drive name will be `NODE_F401RE`).
 1. Click on [this link](https://developer.mbed.org/platforms/ST-Nucleo-F401RE/) (sign up for an ARM mbed account when prompted).
-1. Then click on [this link](https://developer.mbed.org/compiler/#import:/users/janjongboom/code/BLE_LED_Button/;platform:).
+1. Then click on [this link](https://developer.mbed.org/compiler/#import:/users/janjongboom/code/BLE_LED_Button_Nucleo/;platform:).
 
 The following steps will be the same for both platforms.
 
@@ -36,7 +37,7 @@ The following steps will be the same for both platforms.
 
 1. Change `MY_BLE_DEVICE` into a name of your own choosing.
 1. Hit the *Compile* button. After a few seconds a file will download.
-1. Your board is mounted as a mass-storage device (like a USB drive). Drag this file onto your board (should be named `MBED`).
+1. Your board is mounted as a mass-storage device (like a USB drive). Drag this file onto your board (should be named `MBED` or `NODE_F401RE`).
 1. The green LED should start blinking. The application is loaded onto the board!
 
 **On Windows:** For basic usage you don't need to install anything, but if you want to see debug messages, install the [serial driver](https://developer.mbed.org/handbook/Windows-serial-configuration).
