@@ -25,6 +25,8 @@ Reading this doc after RISE? Not a problem. Get an mbed enabled BLE board (nRF51
 1. Click on [this link](https://developer.mbed.org/platforms/ST-Nucleo-F401RE/) (sign up for an ARM mbed account when prompted).
 1. Then click on [this link](https://developer.mbed.org/compiler/#import:/users/janjongboom/code/BLE_LED_Button_Nucleo/;platform:).
 
+**Note:** Make sure to fully insert the mini-USB cable. If it's half in the board seems powered, but doesn't show up on your computer.
+
 The following steps will be the same for both platforms.
 
 1. Click *Import* to add the program to your online compiler.
@@ -156,37 +158,38 @@ If you want to experiment with WiFi we have a number of the ESP8266 WiFi modules
 
 This is how you wire the ESP8266 to your Nucleo board:
 
-![Pens > computers](pinout-esp8266.jpg)
+![Pens > computers](pinout-esp8266.png)
 
-You cannot connect `TX` directly to `D2`, but you need a voltage divider to transform 5V into 3.3V. Do it like this:
+* GND -> GND
+* TX -> D2
+* CH_PD -> 3.3V
+* RESET -> D7
+* VCC -> 3.3V
+* RX -> D8
 
-* Put 3 resistors with the same value in series on a breadboard.
-* Connect a wire from one end of the resistor chain to D2.
-* Connect a wire from the other end of the resistor chain to GND.
-* Connect a wire from 1/3th of the resistor chain (seen from D2) to `TX` on the ESP8266.
+<!-- Does not seem necessary on Nucleo, but is on FRDM-K64F. Just keeping it for future reference -->
+<!--You cannot connect `RX` directly to `D8`, but you need a voltage divider to transform 5V into 3.3V. Do it like this:-->
 
-![Voltage divider](voltage-divider.jpg)
+<!--* Put 3 resistors with the same value in series on a breadboard.-->
+<!--* Connect a wire from one end of the resistor chain to D8.-->
+<!--* Connect a wire from the other end of the resistor chain to GND.-->
+<!--* Connect a wire from 1/3th of the resistor chain (seen from D8) to `RX` on the ESP8266.-->
 
-*1=D2 on Nucleo; 2=TX on ESP8266; 3=GND on Nucleo*
+<!--![Voltage divider](voltage-divider.jpg)-->
 
-When wired successfully the red LED should burn (status LED) and we can import some code. Click on [this link](https://developer.mbed.org/compiler/#import:/teams/ESP8266/code/ESP8266_HTTP_HelloWorld/;platform:) to import the 'ESP8266_HTTP_HelloWorld' program into the online compiler.
+<!--*1=D8 on Nucleo; 2=RX on ESP8266; 3=GND on Nucleo*-->
 
-After importing, open *main.cpp* and change the following line:
+When wired successfully the red LED should burn (status LED) and we can import some code (if the blue LED is also burning constantly, you did something wrong). Click on [this link](https://developer.mbed.org/compiler/#import:/users/janjongboom/code/ESP8266_HTTP_HelloWorld/;platform:) to import the 'ESP8266_HTTP_HelloWorld' program into the online compiler.
+
+After importing, open *main.cpp* and change the following lines to reflect the WiFi we're using today:
 
 ```cpp
-ESP8266Interface wifi(D1,D0,D2,"demossid","password",115200); // TX,RX,Reset,SSID,Password,Baud
+const char* ssid = "YOUR_SSID";
+const char* pwd = "YOUR_PWD";
 ```
 
-into:
+Then hit *Compile* and flash the application to your board, similar to how we did it for the Bluetooth examples. Sometimes the first request fails, look at the serial output for information (baud rate 115200).
 
-```
-ESP8266Interface wifi(D8,D2,D7,"OUR_SSID","OUR_PWD",115200); // TX,RX,Reset,SSID,Password,Baud
-```
-
-Then hit *Compile* and flash the application to your board, similar to how we did it for the Bluetooth examples. Sometimes the first request fails, look at the serial output for information (baud rate 9600).
-
-**Tip:** Want raw access to the ESP8266? Run [SerialPassthrough](https://developer.mbed.org/users/mbedAustin/code/SerialPassthrough/) on the board, and talk directly from computer to the WiFi chip.
-
-**Tip 2:** Put the GET/POST calls into a `while(1) {}` loop so it keeps doing requests.
+**Tip:** Want raw access to the ESP8266? Run [SerialPassthrough](https://developer.mbed.org/users/mbedAustin/code/SerialPassthrough/) on the board, and talk directly from computer to the WiFi chip. To verify that your setup is correct set baud rate to 115200, and line-ending to NL&CR. Now send `AT+GMR` to get firmware version.
 
 Now just feel free to start hacking on any connected solution. Enjoy!
