@@ -112,13 +112,15 @@ Instead of a button we can use any other type of input. For example a motion sen
 
 We currently only toggle the LED on or off. But we can also use 'pulse width modulation' to change the intensity of an LED. If we combine that with a tri-color LED we can make almost any color!
 
-Hook either three LEDs or a tri-color LED up to the breadboard and to 3 pins (D0, D1, D2 on Nucleo; or p3, p4, p5 on Tiny BLE). Don't forget to connect GND as well. Then define the LEDs like this in your firmware code:
+Hook either three LEDs or a tri-color LED up to the breadboard and to 3 pins (D3, D5, D6 on Nucleo; or p3, p4, p5 on Tiny BLE). Don't forget to connect GND as well. Then define the LEDs like this in your firmware code:
 
 ```cpp
-PwmOut red(D0);
-PwmOut green(D1);
-PwmOut blue(D2);
+PwmOut red(D3);
+PwmOut green(D5);
+PwmOut blue(D6);
 ```
+
+**Note:** I have two kinds of the 3-color LEDs. One with 4 pins, one with 6 pins. On the 4-pin one, there's (from left-to-right, GND is longest) RED, GND, GREEN, BLUE. On the 6-pin one, treat it as three separate LEDs (so 3 pins to GND, one to RED, etc.).
 
 You can set the intensity of the LED like this:
 
