@@ -120,7 +120,7 @@ PwmOut green(D5);
 PwmOut blue(D6);
 ```
 
-**Note:** I have two kinds of the 3-color LEDs. One with 4 pins, one with 6 pins. On the 4-pin one, there's (from left-to-right, GND is longest) RED, GND, GREEN, BLUE. On the 6-pin one, treat it as three separate LEDs (so 3 pins to GND, one to RED, etc.).
+**Note:** I have two kinds of the 3-color LEDs. One with 4 pins, one with 6 pins. On the 4-pin one, there's (from left-to-right, GND is longest) RED, GND, GREEN, BLUE. On the 6-pin one, the two middle pins (longest) are GND. The other pins are RGBB.
 
 You can set the intensity of the LED like this:
 
